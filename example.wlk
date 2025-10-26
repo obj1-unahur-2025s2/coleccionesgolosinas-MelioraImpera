@@ -107,3 +107,29 @@ class PastillaTuttifrutti {
 	method libreGluten() { return libreDeGluten }	
 	method libreGluten(valor) { libreDeGluten = valor }
 }
+
+//Mariano
+object mariano {
+  const property golosinasCompradas = []
+
+  method comprar(unaGolosina) {
+    golosinasCompradas.add(unaGolosina)
+  }
+  method desechar(unaGolosina) {
+    golosinasCompradas.remove(unaGolosina)
+  }
+  method cantidadDeGolosinas() = golosinasCompradas.size()
+  method tieneLaGolosina(unaGolosina) = golosinasCompradas.contains(unaGolosina)
+  method probarGolosinas() {
+    golosinasCompradas.forEach({g => g.recibirMordisco()})
+  }
+  method hayGolosinaSinTACC() = golosinasCompradas.any({g => g.esLibreDeGluten()})
+  method preciosCuidados() = golosinasCompradas.all({g => g.valor() <= 10})
+  method golosinaDeSabor(unSabor) = golosinasCompradas.find({g => g.sabor() == unSabor})
+  method golosinasDeSabor(unSabor) = golosinasCompradas.filter({g => g.sabor() == unSabor})
+  method sabores() = golosinasCompradas.map({g => g.sabor()}).toSet()
+  method golosinaMasCara() = golosinasCompradas.max({g => g.valor()})
+  method pesoGolosinas() = golosinasCompradas.sum({g => g.peso()})
+  method golosinasFaltantes(golosinasDeseadas) = golosinasDeseadas.filter({g => !golosinasCompradas.contains(g)})
+  method gustosFaltantes(gustosDeseados) = golosinasCompradas.map({g => g.sabor()}).toSet().difference(gustosDeseados.toSet())
+}
