@@ -1,9 +1,96 @@
-import example.pepita
+import example.*
 
-describe "group of tests for pepita" {
-
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+describe "Grupo de tests para las golosinas." {
+    const bombon1 = new Bombon()
+    const alfajor1 = new Alfajor()
+    const caramelo1 = new Caramelo()
+    const chupetin1 = new Chupetin()
+    const oblea1 = new Oblea()
+    const chocolatin1 = new Chocolatin(pesoInicial = 40)
+    const chocolatin2 = new Chocolatin(pesoInicial = 100)
+    const pastilla1 = new PastillaTuttifrutti(libreDeGluten = true)
+    const pastilla2 = new PastillaTuttifrutti(libreDeGluten = false)
+  
+  test "Para el bombon: se verifique que el peso inicial, el precio y el gusto sean los indicados en el enunciado; y que es, o no, libre de gluten, de acuerdo también a lo que se indica en el enunciado. " {
+    assert.equals(15, bombon1.peso())
+    assert.equals(5, bombon1.precio())
+    assert.equals(frutilla, bombon1.sabor())
+    assert.equals(true, bombon1.esLibreDeGluten())
   }
+  test "Para el alfajor: se verifique que el peso inicial, el precio y el gusto sean los indicados en el enunciado; y que es, o no, libre de gluten, de acuerdo también a lo que se indica en el enunciado. " {
+    assert.equals(300, alfajor1.peso())
+    assert.equals(12, alfajor1.precio())
+    assert.equals(chocolate, alfajor1.sabor())
+    assert.equals(false, alfajor1.esLibreDeGluten())
+  }
+  test "Para el caramelo: se verifique que el peso inicial, el precio y el gusto sean los indicados en el enunciado; y que es, o no, libre de gluten, de acuerdo también a lo que se indica en el enunciado. " {
+    assert.equals(5, caramelo1.peso())
+    assert.equals(1, caramelo1.precio())
+    assert.equals(frutilla, caramelo1.sabor())
+    assert.equals(true, caramelo1.esLibreDeGluten())
+  }
+  test "Para el chupetín: se verifique que el peso inicial, el precio y el gusto sean los indicados en el enunciado; y que es, o no, libre de gluten, de acuerdo también a lo que se indica en el enunciado. " {
+    assert.equals(7, chupetin1.peso())
+    assert.equals(2, chupetin1.precio())
+    assert.equals(naranja, chupetin1.sabor())
+    assert.equals(true, chupetin1.esLibreDeGluten())
+  }
+  test "Para la oblea: se verifique que el peso inicial, el precio y el gusto sean los indicados en el enunciado; y que es, o no, libre de gluten, de acuerdo también a lo que se indica en el enunciado. " {
+    assert.equals(250, oblea1.peso())
+    assert.equals(5, oblea1.precio())
+    assert.equals(vainilla, oblea1.sabor())
+    assert.equals(false, oblea1.esLibreDeGluten())
+  }
+  test "Para el chocolatín: se verifique que el peso inicial, el precio y el gusto sean los indicados en el enunciado; y que es, o no, libre de gluten, de acuerdo también a lo que se indica en el enunciado. " {
+    assert.equals(40, chocolatin1.peso())
+    assert.equals(20, chocolatin1.precio())
+    assert.equals(chocolate, chocolatin1.sabor())
+    assert.equals(false, chocolatin1.esLibreDeGluten())
+  }
+  test "Para el chocolatín 2: se verifique que el peso inicial, el precio y el gusto sean los indicados en el enunciado; y que es, o no, libre de gluten, de acuerdo también a lo que se indica en el enunciado. " {
+    assert.equals(100, chocolatin2.peso())
+    assert.equals(50, chocolatin2.precio())
+    assert.equals(chocolate, chocolatin2.sabor())
+    assert.equals(false, chocolatin2.esLibreDeGluten())
+  }
+  test "Para la pastilla de tutti frutti libre de gluten: se verifique que el peso inicial, el precio y el gusto sean los indicados en el enunciado; y que es, o no, libre de gluten, de acuerdo también a lo que se indica en el enunciado. " {
+    assert.equals(5, pastilla1.peso())
+    assert.equals(7, pastilla1.precio())
+    assert.equals(frutilla, pastilla1.sabor())
+    assert.equals(true, pastilla1.esLibreDeGluten())
+  }
+  test "Para la pastilla de tutti frutti no libre de gluten: se verifique que el peso inicial, el precio y el gusto sean los indicados en el enunciado; y que es, o no, libre de gluten, de acuerdo también a lo que se indica en el enunciado. " {
+    assert.equals(5, pastilla2.peso())
+    assert.equals(10, pastilla2.precio())
+    assert.equals(frutilla, pastilla2.sabor())
+    assert.equals(false, pastilla2.esLibreDeGluten())
+  }
+}
 
+describe "Grupo de tests de Mariano." {
+  const bombon1 = new Bombon()
+  const caramelo1 = new Caramelo()
+  const chocolatin1 = new Chocolatin(pesoInicial = 40)
+  const chupetin1 = new Chupetin()
+    
+
+    method initialize() {
+      mariano.comprar(chocolatin1)
+      mariano.comprar(caramelo1)
+      mariano.comprar(bombon1)
+    }
+  test "Verificar que el método golosinaMasCara funcione correctamente." {
+    assert.equals(chocolatin1, mariano.golosinaMasCara())
+  }
+  test "Hay tres golosinas." {
+    assert.equals(3, mariano.cantidadDeGolosinas())
+  }
+  test "Verificar que el método golosinasFaltantes funcione correctamente." {
+    const golosinasFaltantes = #{bombon1, caramelo1, chocolatin1, chupetin1}
+    assert.equals(#{chupetin1}, mariano.golosinasFaltantes(golosinasFaltantes))
+  }
+  test "Verificar que el método gustosFaltantes funcione correctamente." {
+    const gustosDeseados = #{melon, chocolate, frutilla, vainilla}
+    assert.equals(#{melon, vainilla}, mariano.gustosFaltantes(gustosDeseados))
+  }
 }

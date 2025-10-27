@@ -2,7 +2,7 @@
 class Bombon {
   var peso = 15
 
-  method valor() = 5
+  method precio() = 5
   method sabor() = frutilla
   method esLibreDeGluten() = true
   method recibirMordisco() {
@@ -16,10 +16,11 @@ object frutilla {}
 object chocolate {}
 object naranja {}
 object vainilla {}
+object melon {}
 
 class Alfajor {
   var peso = 300
-  method valor() = 12
+  method precio() = 12
   method sabor() = chocolate
   method esLibreDeGluten() = false
   method recibirMordisco() {
@@ -30,7 +31,7 @@ class Alfajor {
 
 class Caramelo {
   var peso = 5
-  method valor() = 1
+  method precio() = 1
   method sabor() = frutilla
   method esLibreDeGluten() = true
   method recibirMordisco() {
@@ -42,7 +43,7 @@ class Caramelo {
 class Chupetin {
   var peso = 7
 
-  method valor() = 2
+  method precio() = 2
   method sabor() = naranja
   method esLibreDeGluten() = true
   method recibirMordisco() {
@@ -56,7 +57,7 @@ class Chupetin {
 class Oblea {
   var peso = 250
   
-  method valor() = 5
+  method precio() = 5
   method sabor() = vainilla
   method esLibreDeGluten() = false
   method recibirMordisco() {
@@ -71,13 +72,13 @@ class Oblea {
 
 class Chocolatin {
   const pesoInicial
-  var pesoActual
+  var pesoActual = 0
 
-  method valor() = 0.5 * pesoInicial
+  method precio() = 0.5 * pesoInicial
   method sabor() = chocolate
   method esLibreDeGluten() = false
   method recibirMordisco() {pesoActual = pesoActual - 2}
-  method peso() = pesoActual
+  method peso() = pesoInicial
 }
 
 class GolosinaBaniada {
@@ -86,7 +87,7 @@ class GolosinaBaniada {
 
   method golosinaInterior(unaGolosina) { golosinaBase = unaGolosina }
   method peso() = golosinaBase.peso() + pesoBanio
-  method valor() = golosinaBase.valor() + 2
+  method precio() = golosinaBase.precio() + 2
   method sabor() = golosinaBase.sabor()
   method esLibreDeGluten() = golosinaBase.esLibreDeGluten()
   method recibirMordisco() {
@@ -96,16 +97,15 @@ class GolosinaBaniada {
 }
 
 class PastillaTuttifrutti {
-	var libreDeGluten
+	var property libreDeGluten
 	const sabores = [frutilla, chocolate, naranja, vainilla]
 	var saborActual = 0
 	
 	method mordisco() { saborActual += 1 }	
 	method sabor() { return sabores.get(saborActual % 4) }	
-	method precio() { return (if(self.libreGluten()) 7 else 10) }
+	method precio() { return (if(self.esLibreDeGluten()) 7 else 10) }
 	method peso() { return 5 }
-	method libreGluten() { return libreDeGluten }	
-	method libreGluten(valor) { libreDeGluten = valor }
+	method esLibreDeGluten() { return libreDeGluten }	
 }
 
 //Mariano
@@ -124,12 +124,12 @@ object mariano {
     golosinasCompradas.forEach({g => g.recibirMordisco()})
   }
   method hayGolosinaSinTACC() = golosinasCompradas.any({g => g.esLibreDeGluten()})
-  method preciosCuidados() = golosinasCompradas.all({g => g.valor() <= 10})
+  method preciosCuidados() = golosinasCompradas.all({g => g.precio() <= 10})
   method golosinaDeSabor(unSabor) = golosinasCompradas.find({g => g.sabor() == unSabor})
   method golosinasDeSabor(unSabor) = golosinasCompradas.filter({g => g.sabor() == unSabor})
   method sabores() = golosinasCompradas.map({g => g.sabor()}).toSet()
-  method golosinaMasCara() = golosinasCompradas.max({g => g.valor()})
+  method golosinaMasCara() = golosinasCompradas.max({g => g.precio()})
   method pesoGolosinas() = golosinasCompradas.sum({g => g.peso()})
   method golosinasFaltantes(golosinasDeseadas) = golosinasDeseadas.filter({g => !golosinasCompradas.contains(g)})
-  method gustosFaltantes(gustosDeseados) = golosinasCompradas.map({g => g.sabor()}).toSet().difference(gustosDeseados.toSet())
+  method gustosFaltantes(gustosDeseados) = gustosDeseados.difference(golosinasCompradas.map({g => g.sabor()}))
 }
